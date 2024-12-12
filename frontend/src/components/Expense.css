@@ -1,104 +1,148 @@
 /* Container to center all content */
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* Ensure full height of the viewport */
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  
-  /* Styling for the Add Expense section */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Styling for the Add Expense section */
+.add-expense-section {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px; /* Adds space below the form */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px; /* Set a maximum width for the form */
+  margin: 0 auto; /* Center align the form */
+}
+
+.add-expense-section h3 {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Styling for the form inside AddExpenseForm */
+.expense-form input,
+.expense-form select,
+.expense-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Specific styling for the category dropdown */
+.expense-form select {
+  appearance: none; /* Remove default dropdown appearance in some browsers */
+  background-color: #fff;
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"%3E%3Cpath fill="none" d="M4 6l4 4 4-4z" /%3E%3C/svg%3E');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+}
+
+/* Style for the error message */
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+/* Style for the submit button */
+.expense-form button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Button hover effect */
+.expense-form button:hover {
+  background-color: #45a049;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
   .add-expense-section {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px; /* Adds space below the form */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px; /* Set a maximum width for the form */
-    margin: 0 auto; /* Center align the form */
+    width: 90%; /* Allow form to take more space on small screens */
+  }
+
+  .expense-list table {
+    width: 100%; /* Make the table take full width */
+    font-size: 14px; /* Slightly smaller text for mobile */
+  }
+
+  .expense-list th,
+  .expense-list td {
+    padding: 8px; /* Adjust padding for smaller screens */
+  }
+
+  .expense-list th {
+    font-size: 16px; /* Slightly smaller font size for table headers */
+  }
+
+  .expense-list button {
+    padding: 5px 8px; /* Adjust button size */
   }
   
-  .add-expense-section h3 {
-    text-align: center;
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  /* Styling for the form inside AddExpenseForm */
-  .expense-form input,
-  .expense-form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
-  /* Style for the error message */
-  .error-message {
-    color: red;
-    font-size: 14px;
-    margin-bottom: 10px;
-  }
-  
-  /* Style for the submit button */
-  .expense-form button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-  }
-  
-  /* Button hover effect */
-  .expense-form button:hover {
-    background-color: #45a049;
-  }
-  
-  /* Responsive design for smaller screens */
-  @media (max-width: 768px) {
-    .add-expense-section {
-      width: 90%; /* Allow form to take more space on small screens */
-    }
-  }
-  
-  /* Styling for the Expense List section */
   .expense-list {
     width: 100%;
-    max-width: 800px; /* Set a maximum width for the list */
-    margin-top: 20px; /* Add space between the form and the list */
+    overflow-x: auto; /* Allow horizontal scrolling on smaller screens */
   }
-  
-  .expense-list ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .expense-list li {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .expense-list button {
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .expense-list button:hover {
-    background-color: #c0392b;
-  }
-  
+}
+
+/* Styling for the Expense List section */
+.expense-list {
+  max-width: 800px; /* Set a maximum width for the list */
+  margin-top: 20px;
+  margin-left: 25%; /* Add space between the form and the list */
+}
+
+.expense-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.expense-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.expense-list button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.expense-list button:hover {
+  background-color: #c0392b;
+}
+
+/* Styling for the date group section */
+.expense-date-group {
+  margin-bottom: 20px;
+}
+
+.expense-date-group h3 {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}

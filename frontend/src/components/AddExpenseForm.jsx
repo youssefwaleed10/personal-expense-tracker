@@ -9,6 +9,15 @@ const AddExpenseForm = ({ onAdd }) => {
   const [date, setDate] = useState(""); // New state for date
   const [error, setError] = useState(""); // To track any error messages
 
+  const categories = [
+    "Food",
+    "Rent",
+    "Transportation",
+    "Entertainment",
+    "Utilities",
+    "Others",
+  ];
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -51,13 +60,20 @@ const AddExpenseForm = ({ onAdd }) => {
     <div className="add-expense-section">
       <h3>Add Expense</h3>
       <form onSubmit={handleSubmit} className="expense-form">
-        <input
-          type="text"
-          placeholder="Category"
+        <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
           required
-        />
+        >
+          <option value="" disabled>
+            Select Category
+          </option>
+          {categories.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
         <input
           type="number"
           placeholder="Amount"

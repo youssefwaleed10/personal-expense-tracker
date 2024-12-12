@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getExpenses, deleteExpense } from "../services/expenseService";
-import "./Expense.css";
+import "./Expense.css"; // Make sure the CSS file is linked
 
 const ExpenseList = () => {
   const [expenses, setExpenses] = useState([]);
@@ -35,39 +35,63 @@ const ExpenseList = () => {
     }
   };
 
+  // Group expenses by date
+  const groupExpensesByDate = () => {
+    const today = new Date().toLocaleDateString();
+    const grouped = expenses.reduce((groups, expense) => {
+      const expenseDate = new Date(expense.date).toLocaleDateString();
+      const groupName = expenseDate === today ? "Today" : expenseDate;
+      if (!groups[groupName]) {
+        groups[groupName] = [];
+      }
+      groups[groupName].push(expense);
+      return groups;
+    }, {});
+
+    return grouped;
+  };
+
+  const groupedExpenses = groupExpensesByDate();
+
   return (
-    <div>
+    <div className="expense-list container">
       <h2>Expenses</h2>
-      {error && <div style={{ color: "red" }}>{error}</div>}{" "}
-      {/* Display error message */}
-      <table>
-        <thead>
-          <tr>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>Date</th>
-            <th>Actions</th>{" "}
-            {/* Add column for actions (e.g., delete button) */}
-          </tr>
-        </thead>
-        <tbody>
-          {expenses.map((expense) => (
-            <tr key={expense._id}>
-              <td>{expense.category}</td>
-              <td>${expense.amount}</td>
-              <td>{expense.description}</td>
-              <td>{new Date(expense.date).toLocaleDateString()}</td>{" "}
-              {/* Format the date */}
-              <td>
-                <button onClick={() => handleDelete(expense._id)}>
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {error && <div className="error-message">{error}</div>}{" "}
+      {/* Use error-message class */}
+      <div className="expense-list">
+        {Object.keys(groupedExpenses).map((date) => (
+          <div key={date} className="expense-date-group">
+            <h3>{date}</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Description</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {groupedExpenses[date].map((expense) => (
+                  <tr key={expense._id}>
+                    <td>{expense.category}</td>
+                    <td>${expense.amount}</td>
+                    <td>{expense.description}</td>
+                    <td>
+                      <button
+                        className="delete-button"
+                        onClick={() => handleDelete(expense._id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
