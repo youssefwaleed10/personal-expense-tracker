@@ -22,9 +22,11 @@ app.use(express.json());
 
 // Import Routes
 const expenseRoutes = require("./routes/expenseRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 // Use Routes
 app.use("/api/expenses", expenseRoutes);
+app.use("/api/users", userRoutes);
 
 // Connect to MongoDB
 const PORT = process.env.PORT || 5001;
