@@ -1,4 +1,5 @@
 const User = require("../models/Users");
+const bcrypt = require("bcrypt");
 
 // Get all users
 exports.getUsers = async (req, res) => {
@@ -9,6 +10,7 @@ exports.getUsers = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 // Get a single user
 exports.getSingleUser = async (req, res) => {
   try {
@@ -21,6 +23,7 @@ exports.getSingleUser = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 // Update a user
 exports.updateUser = async (req, res) => {
   const { username, password, email } = req.body;
@@ -32,7 +35,7 @@ exports.updateUser = async (req, res) => {
     }
 
     user.username = username || user.username;
-    user.password = password || user.password;
+    user.password = password ? await bcrypt.hash(password, 10) : user.password;
     user.email = email || user.email;
 
     const updatedUser = await user.save();
@@ -41,27 +44,27 @@ exports.updateUser = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 // Add a new user
 exports.createUser = async (req, res) => {
   try {
     const { username, password, email } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create a new user
     const newUser = new User({
       username,
-      password,
+      password: hashedPassword,
       email,
     });
 
-    // Save the user to the database
     await newUser.save();
-
     res.status(201).json(newUser);
   } catch (error) {
     console.error("Error creating user:", error);
     res.status(500).json({ message: "Error creating user" });
   }
 };
+
 // Delete a user
 exports.deleteUser = async (req, res) => {
   try {

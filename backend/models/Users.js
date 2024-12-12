@@ -24,7 +24,6 @@ const UserSchema = new mongoose.Schema({
     enum: ["admin", "user"],
     default: "user",
   },
-
   date: {
     type: Date,
     default: Date.now,
