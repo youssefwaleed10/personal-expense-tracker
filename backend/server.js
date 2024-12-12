@@ -8,9 +8,16 @@ dotenv.config();
 
 const app = express();
 
-// Middleware
-app.use(cors({ origin: "http://localhost:5001" }));
+// CORS setup to allow requests from 'http://localhost:5173'
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Allow this specific origin
+    methods: ["GET", "POST", "DELETE"], // Allow specific HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allow specific headers
+  })
+);
 
+// Middleware for parsing JSON bodies
 app.use(express.json());
 
 // Import Routes
@@ -24,7 +31,7 @@ const PORT = process.env.PORT || 5001;
 const MONGO_URI = process.env.MONGO_URI;
 
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(MONGO_URI)
   .then(() => {
     console.log("Connected to MongoDB");
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

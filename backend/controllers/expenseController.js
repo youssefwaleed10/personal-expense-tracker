@@ -14,7 +14,7 @@ exports.getExpenses = async (req, res) => {
 exports.addExpense = async (req, res) => {
   const { amount, category, date, description } = req.body;
 
-  if (!amount || !category || !date) {
+  if (!amount || !category) {
     return res
       .status(400)
       .json({ message: "Please provide all required fields." });
@@ -24,7 +24,7 @@ exports.addExpense = async (req, res) => {
     const newExpense = new Expense({
       amount,
       category,
-      date,
+      date: date || Date.now(), // Use the current date if no date is provided
       description,
     });
 
