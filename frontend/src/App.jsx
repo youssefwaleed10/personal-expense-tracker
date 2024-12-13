@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client"; // Import ReactDOM to render the component
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom"; // Import React Router
 import ExpenseList from "./components/ExpenseList";
 import AddExpenseForm from "./components/AddExpenseForm";
 import { deleteExpense } from "./services/expenseService"; // Import deleteExpense
+import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
+import AdminPage from "./components/AdminPage";
 
 const App = () => {
   const [expenses, setExpenses] = useState([]);
@@ -17,12 +26,28 @@ const App = () => {
   };
 
   return (
-    <div>
-      <h1>Expense Tracker</h1>
-      <AddExpenseForm onAdd={handleAdd} />
-      <ExpenseList expenses={expenses} handleDelete={handleDelete} />{" "}
-      {/* Pass expenses to ExpenseList */}
-    </div>
+    <Router>
+      <div>
+        <h1>Expense Tracker</h1>
+        <Routes>
+          <Route path="/" element={<Navigate to="/signin" />} />{" "}
+          {/* Redirect root to /signin */}
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route
+            path="/add-expense"
+            element={<AddExpenseForm onAdd={handleAdd} />}
+          />
+          <Route
+            path="/expenses"
+            element={
+              <ExpenseList expenses={expenses} handleDelete={handleDelete} />
+            }
+          />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 
