@@ -44,7 +44,7 @@ npm start
 cd frontend
 npm run dev
 
-###
+# Finally
 Once the application is running, users can sign up, log in, add expenses, and view their expense history.
 
 This project is meant for training purposes, specifically focusing on authentication and token-based security,
