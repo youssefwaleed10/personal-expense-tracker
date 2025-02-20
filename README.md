@@ -2,7 +2,7 @@
 
 ## Description  
 Personal Expense Tracker is a training project focused on learning token-based authentication and user sign-in using JWT.
-The main goal is to implement secure authentication rather than focusing on the frontend design.
+The main goal is to implement secure authentication and work with branches rather than focusing on the frontend design.
 The project is built using the MERN stack and provides basic user authentication and expense tracking functionality.  
 
 ## Features  
@@ -44,7 +44,7 @@ npm start
 cd frontend
 npm run dev
 
-
+###
 Once the application is running, users can sign up, log in, add expenses, and view their expense history.
 
 This project is meant for training purposes, specifically focusing on authentication and token-based security,
